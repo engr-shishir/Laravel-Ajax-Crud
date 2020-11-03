@@ -62,19 +62,27 @@
        </div>
        <form action="" id="forms">
            <div class="fom-group">
-            <label for="name">Name</label>
-            <input id="name" type="text" class="form-control"/>
-            <span class="text-danger" id="nameError"></span>
+            <div class="px-1 d-flex justify-content-between">
+              <label class="h6" for="name">Name</label>
+              <strong class="text-danger" id="nameError"></strong>
+            </div>
+            <input id="name" type="text" class="form-control mb-3"/>
            </div>
+
            <div class="fom-group">
-            <label for="title">Title</label>
-            <input id="title" type="text" class="form-control"/>
-            <span class="text-danger" id="titleError"></span>
+            <div class="px-1 d-flex justify-content-between">
+              <label class="h6" for="title">Title</label>
+              <strong class="text-danger" id="titleError"></strong>
+            </div>
+            <input id="title" type="text" class="form-control mb-3"/>
            </div>
+
            <div class="fom-group">
-            <label for="institute">Institute</label>
-            <input id="institute" type="text" class="form-control"/>
-            <span class="text-danger" id="instituteError"></span>
+            <div class="px-1 d-flex justify-content-between">
+              <label class="h6" for="institute">Institute</label>
+              <strong class="text-danger" id="instituteError"></strong>
+            </div>
+            <input id="institute" type="text" class="form-control mb-3"/>
            </div>
 
            <input type="hidden" id="id">
@@ -95,17 +103,34 @@
 
 
 
+
+
+
+
+
+
+
+<!-----Script Part Start----------->
 <script>
 
 $('#addbtn').show();
 $('#updatebtn').hide();
 
-
- $.ajaxSetup({
+$.ajaxSetup({
   headers:{
    'x-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
  });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -151,6 +176,17 @@ allData();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 //----- Clear Data ------------
 function clearData()
 {
@@ -162,6 +198,17 @@ function clearData()
   $('#instituteError').text('');
 }
 //----- Clear Data ------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -210,6 +257,27 @@ $('#addbtn').click(function(event){
   
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //------Edit Teacher Data------------------------
 function editData(id)
 {
@@ -226,10 +294,27 @@ function editData(id)
       $('#name').val(data.name);
       $('#title').val(data.title);
       $('#institute').val(data.institute);
+
+      $('#nameError').text("");
+      $('#titleError').text("");
+      $('#instituteError').text("");
     }
   });
 } 
 //------Edit Teacher Data End------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -283,6 +368,21 @@ $('#updatebtn').click(function(event){
 //------updateData Teacher Data End------------------------
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //------Delete Teacher Data------------------------
 function deleteData(id)
 {
@@ -304,6 +404,26 @@ function deleteData(id)
   });
 }
 //------Delete Teacher Data End------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -345,7 +465,22 @@ $("#deleteAll").click(function(e){
 });
 //------Checkbox Functionality End--------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
+<!-----Script Part Start----------->
+
+
 
 </body>
 </html>

@@ -25,7 +25,11 @@ class TeacherController extends Controller
           'name' => 'required',
           'title' => 'required',
           'institute' => 'required',
-        ]);
+        ],[
+          'name.required' => 'Please Input Your Name',
+          'title.required' => 'Please Input Your Title',
+          'institute.required' => 'Please Input Your Insttute',
+       ]);
 
        $data = Teacher::insert([
            'name' => $request->name,
