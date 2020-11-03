@@ -13,6 +13,7 @@
  
 
 
+
 <section class="py-5">
  <div class="container">
   <h2 class="text-danger">
@@ -21,14 +22,19 @@
   <div class="row ">
    <div class="col-md-8 m-auto">
       <div class="card " style="">
-       <div class="card-header text-center h2">
-        <span>All Teacher List</span>
+       <div class="card-header text-center">
+        <span class="h2">All Teacher List</span>
        </div>
 
        <div class="card-body">
+         <div id="tablemessage"></div>
          <table class="table table-bordered table-striped" style="text-transform: capitalize;">
           <thead class="bg-dark text-light">
            <tr class="text-center">
+            <th>
+              <input type='checkbox' id='chkall' /> 
+              <a href="" class="btn btn-dark btn-sm" id="deleteAll">Delete All</a>
+            </th>
             <th>#</th>
             <th>Name</th>
             <th>Title</th>
@@ -52,6 +58,8 @@
       </div>
 
       <div class="card-body">
+       <div id="formmessage">
+       </div>
        <form action="" id="forms">
            <div class="fom-group">
             <label for="name">Name</label>
@@ -112,7 +120,12 @@ function allData()
    {
     var data = ""
     $.each(response, function(key,value){
-      data = data + "<tr class='text-center'>"
+      data = data + "<tr class='text-center' id='sid"+value.id+" '>"
+
+      data = data + "<td class='text-left'>"
+      data = data + "<input type='checkbox' name='ids' class='checkBoxClass' value="+value.id+" />"
+      data = data + "</td>"
+      
       data = data + "<td>"+value.id+"</td>"
       data = data + "<td>"+value.name+"</td>"
       data = data + "<td>"+value.title+"</td>"
@@ -176,6 +189,13 @@ $('#addbtn').click(function(event){
     success: function(data)
     {
        allData();
+       
+       $('#formmessage').show();
+       $('#formmessage').html("<div class='alert alert-success alert-dismissible fade show text-center' role='alert'>Added Data Successfully<strong></strong></div>");
+
+       setTimeout(function(){
+       $('#formmessage').hide(500);
+       },3000);
        clearData();
     },
     error: function(error)
@@ -238,10 +258,19 @@ $('#updatebtn').click(function(event){
     url:"/teacher/update/"+id,
     success: function(data)
     {
-       allData();
        clearData();
       $('#addbtn').show();
       $('#updatebtn').hide();
+
+       allData();
+       $('#formmessage').show();
+       $('#formmessage').html("<div class='alert alert-success alert-dismissible fade show text-center' role='alert'>Update Data Successfully<strong></strong></div>");
+
+       setTimeout(function(){
+       $('#formmessage').hide(500);
+       },3000);
+
+
     },
     error: function(error)
     {
@@ -254,6 +283,7 @@ $('#updatebtn').click(function(event){
 //------updateData Teacher Data End------------------------
 
 
+//------Delete Teacher Data------------------------
 function deleteData(id)
 {
   $.ajax({
@@ -262,16 +292,60 @@ function deleteData(id)
       url:"/teacher/delete/"+id,
       success:function(data)
       {
-         allData();
+       allData();
+       $('#tablemessage').show();
+       $('#tablemessage').html("<div class='alert alert-success alert-dismissible fade show text-center' role='alert'>Delete Data Successfully<strong></strong></div>");
+       //alert(response.success);
+
+       setTimeout(function(){
+       $('#tablemessage').hide(500);
+       },3000);
       }
   });
 }
+//------Delete Teacher Data End------------------------
 
 
 
+
+
+
+//------Checkbox Functionality------------------------
+$("#chkall").click(function(){
+  $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+});
+
+$("#deleteAll").click(function(e){
+  e.preventDefault();
+  var allids = [];
+  $("input:checkbox[name=ids]:checked").each(function(){
+    $push = allids.push($(this).val());
+    //alert(allids);
+  });
+
+  $.ajax({
+     type:"GET",
+     url:"/allteacher/delete",
+     dataType: 'json',
+     data:{
+       ids:allids
+     },
+     success:function(response)
+     {  
+       allData();
+       $('#tablemessage').show();
+       $('#tablemessage').html("<div class='alert alert-success alert-dismissible fade show text-center' role='alert'>Delete Data Successfully<strong></strong></div>");
+       //alert(response.success);
+
+       setTimeout(function(){
+       $('#tablemessage').hide(500);
+       },3000);
+     }
+  });
+});
+//------Checkbox Functionality End--------------------
 
 </script>
-
 
 </body>
 </html>

@@ -28,3 +28,5 @@ Route::post('/teacher/update/{id}', [TeacherController::class, 'updateData']);
 
 Route::get('/teacher/delete/{id}', [TeacherController::class, 'deleteData']);
 
+Route::get('/allteacher/delete', [TeacherController::class, 'deleteAll']);
+

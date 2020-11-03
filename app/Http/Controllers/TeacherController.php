@@ -70,4 +70,15 @@ class TeacherController extends Controller
       $teacher->delete();
       return response()->json(['success'=>'Delete rtecord Successfully']);
     }
+
+    public function deleteAll(Request $request)
+    {
+      $ids = $request->ids;
+      
+      foreach($ids as $id){
+        Teacher::where('id',$id)->delete();
+      }
+      return response()->json(['success'=>'Delete All Record Successfully']); 
+      //return response()->json($ids);
+    }
 }
